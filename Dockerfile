@@ -12,15 +12,18 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-# Switch to prod packages
-RUN npm install --only=production
-
 ## Runtime ##
 FROM node:hydrogen-alpine AS runtime
 
 WORKDIR /usr/src/app
 
-COPY --from=builder /usr/src/build .
+# Install packages
+COPY package.json .
+COPY package-lock.json .
+RUN npm install --only=production
+
+# Copy build artifacts
+COPY --from=builder /usr/src/build/build build/
 
 # Runtime
 EXPOSE 3000
