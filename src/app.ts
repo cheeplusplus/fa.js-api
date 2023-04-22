@@ -108,6 +108,16 @@ app.get("/journal/:id", ea(async (req, res) => {
     res.json(journal);
 }));
 
+app.get("/comment/submission/:id", ea(async (req, res) => {
+    const comment = await req.faClient.getCommentText(req.params.id, "submission");
+    res.json(comment);
+}));
+
+app.get("/comment/journal/:id", ea(async (req, res) => {
+    const comment = await req.faClient.getCommentText(req.params.id, "journal");
+    res.json(comment);
+}));
+
 // Search
 
 app.get("/search", ea(async (req, res) => {
