@@ -1,5 +1,5 @@
 import * as express from "express";
-import { CloudscraperHttpClient, FurAffinityClient, SearchQueryParams } from "fa.js";
+import { FurAffinityClient, SearchQueryParams } from "fa.js";
 import * as ea from "express-async-handler";
 import { json } from "body-parser";
 
@@ -27,14 +27,12 @@ app.use((req, res, next) => {
 
 // Set up an FA client for each request
 
-const cloudscraper = new CloudscraperHttpClient();
-
 app.use((req, res, next) => {
     const cookies = req.headers.cookies as string;
     req.isLoggedIn = !!cookies;
     res.setHeader("x-fa-guest", !!cookies ? "false" : "true");
 
-    req.faClient = new FurAffinityClient({ cookies, disableRetry: true, throwErrors: true, httpClient: cloudscraper });
+    req.faClient = new FurAffinityClient({ cookies, disableRetry: true, throwErrors: true });
     next();
 });
 
