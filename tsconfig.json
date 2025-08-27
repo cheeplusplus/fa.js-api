@@ -7,7 +7,8 @@
         "declaration": true,
         "inlineSourceMap": true,
         "outDir": "build",
-        "baseUrl": "."
+        "baseUrl": ".",
+        "skipLibCheck": true
     },
     "include": [
         "src/**/*"
